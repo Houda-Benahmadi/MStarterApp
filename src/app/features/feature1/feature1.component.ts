@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MContainerComponent } from '../../m-framework/m-container/m-container.component';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-feature1',
   standalone: true,
@@ -11,4 +13,10 @@ import { MContainerComponent } from '../../m-framework/m-container/m-container.c
 })
 export class Feature1Component {
 
+  constructor(private router:Router)
+  {
+  }
+  goHome(){
+    this.router.navigateByUrl('/home')
+  }
 }
