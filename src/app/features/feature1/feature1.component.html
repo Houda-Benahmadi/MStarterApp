@@ -1,4 +1,29 @@
 <m-container>
     <br><br>
-    Feature 1
+    <h1> Find Your Nearest Doctor !!</h1>
+    <br>
+    <m-search-button (search)="filterTerm = $event"></m-search-button>
+     <m-table
+        [data]="listofdoctors"
+        [filterTerm]="filterTerm"
+        [tableHeaders]="headers"
+        [showDeleteButton]="false"
+        [showMoreDetails]="true"
+        [showCaption]="true"
+        caption="Avilable Doctors"
+        (navigate)="navigateDoctor()"
+     ></m-table>
+
+     <br><br>
+
+     <m-map
+     [zoomLevel]="10"
+     [lat]="lat"
+     [lng]="lng"
+     (mapInstance)="getMapInstance($event)"
+    >
+    </m-map>
+
+
+
 </m-container>
