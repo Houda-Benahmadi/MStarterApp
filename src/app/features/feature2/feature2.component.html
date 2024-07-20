@@ -1,0 +1,56 @@
+<m-container>
+    <br><br>
+    <m-card >
+        <h1>
+            Hope Your Medical Experience with Us Was Excellent!
+        </h1>
+            <h2>
+                Share Your Feedback and Rate Our Service
+            </h2>
+       
+       
+       
+     
+        <form class="pure-form pure-form-stacked">
+        <br><br>
+            <label for="Feedback"> Your Feedback </label>
+            <input  
+                Feedback=""
+                [(ngModel)]="Feedback"
+                [ngModelOptions]="{standalone: true}"
+                type="string"
+                id="Feedback"
+               
+                />
+       
+       
+                <label for="Rating"> Rate Us From 1-5 (1 Unsatisfied - 5 Satisfied )</label>
+                <input
+                Rating=""
+                    [(ngModel)]="Rating"
+                    [ngModelOptions]="{standalone: true}"
+                    type="number"
+                    id="Rating"
+                    min="1"
+                    max="5"
+                    />
+        </form>
+                <m-result-box
+                 [class]="RatingConditionClass()"
+                 [label]="RatingConditionLabel()">
+ 
+                 {{Rating}}
+       
+ 
+                </m-result-box>
+        <button type="submit" class="pure-button pure-menu-link"> submit </button>
+ 
+<h3>
+    Thank you for sharing your feedback! We appreciate your input and will take it into consideration
+</h3>
+ 
+ 
+        </m-card>
+       
+</m-container>
+ 
