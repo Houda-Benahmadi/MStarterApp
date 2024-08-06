@@ -6,6 +6,7 @@ import { MSearchButtonComponent } from '../../m-framework/m-search-button/m-sear
 import { MTableComponent } from '../../m-framework/m-table/m-table.component';
 import { Doctors } from '../../data/DoctorData';
 import { MMapComponent } from '../../m-framework/m-map/m-map.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-feature1',
@@ -35,7 +36,7 @@ export class Feature1Component {
   //headers: string[] = ['ID','Doctor','Available'];
   //id: number = 1;
 
-  constructor(){
+  constructor(private router:Router){
 
     this.doctorname = "";
     this.Atime = 9;
@@ -55,6 +56,10 @@ export class Feature1Component {
 
   getMapInstance(map:any){
     this.map = map;
+  }
+
+  goToRating(){
+    this.router.navigateByUrl('/feature2');
   }
 
 }

@@ -5,11 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { MLoginComponent } from '../../m-framework/m-login/m-login.component';
 import { MCardComponent } from '../../m-framework/m-card/m-card.component';
 import { MResultBoxComponent } from '../../m-framework/m-result-box/m-result-box.component';
+import { Router } from '@angular/router';
+import { FirebaseService } from '../../services/firebase.service';
+import { Rate } from '../../data/RateData';
 
 @Component({
   selector: 'app-feature2',
   standalone: true,
-  imports: [MLoginComponent,CommonModule, FormsModule, MContainerComponent, MCardComponent,MResultBoxComponent],
+  imports: [MLoginComponent, CommonModule, FormsModule, MContainerComponent, MCardComponent, MResultBoxComponent],
   templateUrl: './feature2.component.html',
   styleUrl: './feature2.component.css'
 })
@@ -19,11 +22,18 @@ export class Feature2Component {
   Rating:number;
  
  
-  constructor()
+  constructor(private router:Router, private firebaseService:FirebaseService)
   {
     this.Feedback = "";
     this.Rating= 0;
  
+  }
+
+  StoreData(){
+    let rating = new Rate(this.Feedback, this.Rating);
+    this.firebaseService.pushToList('rate',rating);
+    this.Feedback='';
+    this.Rating=0;
   }
  
  
@@ -45,6 +55,8 @@ export class Feature2Component {
     else return 'Invalid Rating';
  
   }
+
+
  
 }
 
