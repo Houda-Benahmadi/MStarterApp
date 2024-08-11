@@ -9,8 +9,10 @@ import {
   remove,
   push,
   DataSnapshot,
+  onValue,
 } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +28,7 @@ export class FirebaseService {
     const firebaseConfig = {
       apiKey: "AIzaSyBaQhXXwwNHpKQlNiDXz9QqSy3ouwylpe0",
       authDomain: "project-d7d05.firebaseapp.com",
+      databaseURL: "https://project-d7d05-default-rtdb.firebaseio.com",
       projectId: "project-d7d05",
       storageBucket: "project-d7d05.appspot.com",
       messagingSenderId: "495263755120",
@@ -66,6 +69,33 @@ export class FirebaseService {
     dblist.forEach( item =>{locallist.push(item.val());});
     return locallist; 
   }
+
+  async readList(path: string): Promise<any[]> {
+    const snapshot = await get(ref(this.db, path));
+    const list: any[] = [];
+    snapshot.forEach(childSnapshot => {
+      list.push(childSnapshot.val());
+    });
+    return list;
+  }
+
+  addToList(path: string, data: any){
+    return push(ref(this.db, path), data).key;
+  }
+
+  
+  removeFromList(path: string, key: string){
+    remove(ref(this.db, `${path}/${key}`));
+  }
+
+ getDataContinuosly(field: string): Observable<[]>{
+  return new Observable((observer) => {
+    onValue(ref(this.db, field), (data) => {
+      if(data.valueOf()!= null)
+        observer.next(data.val());
+    });
+  });
+ }
 
   reset(){
     this.delete("","");
