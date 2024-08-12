@@ -7,7 +7,7 @@ import { MDeleteButtonComponent } from '../m-delete-button/m-delete-button.compo
   standalone: true,
   imports: [CommonModule, MDeleteButtonComponent],
   templateUrl: './m-table.component.html',
-  styleUrls: ['./m-table.component.css']  // Fixed typo here
+  styleUrls: ['./m-table.component.css']  
 })
 export class MTableComponent {
   @Input() data: any[] = [];
@@ -19,7 +19,7 @@ export class MTableComponent {
   @Input() tableHeaders: string[] = [];
 
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
-  @Output() navigate: EventEmitter<any> = new EventEmitter<any>();  // Updated to emit any type
+  @Output() navigate: EventEmitter<any> = new EventEmitter<any>(); 
 
   private originalData: any[] = [];
 
@@ -32,7 +32,7 @@ export class MTableComponent {
     return Object.keys(obj);
   }
 
-  showDetails(item: any) {  // Updated to accept the entire item
+  showDetails(item: any) {  
     this.navigate.emit(item);
   }
 

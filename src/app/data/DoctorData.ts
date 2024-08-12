@@ -1,8 +1,8 @@
 export class Doctors {
   id: number;
-  name: string; // Replaces doctorname
-  availableTime: number; // Replaces Atime
-  estimatedArrivalTime: number; // Replaces Etime
+  name: string; 
+  availableTime: number; 
+  estimatedArrivalTime: number; 
 
   constructor(
     id: number,
