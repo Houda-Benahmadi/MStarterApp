@@ -56,6 +56,10 @@ export class Feature2Component {
  
   }
 
+  backtohome(){
+    this.router.navigateByUrl('/');
+  }
+
 
  
 }

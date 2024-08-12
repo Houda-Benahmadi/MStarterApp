@@ -44,7 +44,7 @@ export class Feature1Component {
   showClosestLocationTable: boolean = false;
   closestLocation: Location[] = [];
   headersClosest: string[] = ['ID', 'Hospital Name', 'Estimated Distance'];
-  markersArray: any[] = []; // Array to store markers
+  markersArray: any[] = []; 
 
   constructor(private router: Router, private firebaseService: FirebaseService) {
     this.doctorname = "";
@@ -93,7 +93,7 @@ export class Feature1Component {
         position: { lat: marker.lat, lng: marker.lon },
         title: marker.name
       });
-      this.markersArray.push(mapMarker); // Add the marker to the array
+      this.markersArray.push(mapMarker); 
     });
   }
 
@@ -129,7 +129,7 @@ export class Feature1Component {
     this.showClosestLocationTable = true;
     this.map.setCenter({ lat: closestMarker.lat, lng: closestMarker.lon });
 
-    // Place the closest marker on the map
+    
     this.placeMarkersOnMap([closestMarker]);
   }
 
@@ -163,7 +163,7 @@ export class Feature1Component {
 
     this.showLocationTable = true;
 
-    // Place the nearest markers on the map
+    
     this.placeMarkersOnMap(nearestMarkers);
   }
 
@@ -184,9 +184,9 @@ export class Feature1Component {
   }
 
   navigateDoctor(item: any) {
-    console.log('Navigating with data:', item); // Debugging line
+    console.log('Navigating with data:', item);
 
-    // Ensure 'Hospital Name' is the correct property in the item
+    
     const hospitalName = item['Hospital Name']; 
     const distance = item['Estimated Distance'];
 
@@ -194,7 +194,7 @@ export class Feature1Component {
       this.router.navigate(['/feature3'], { 
         state: { 
           hospital: hospitalName,
-          distance: distance // Add distance data here
+          distance: distance 
         } 
       });
     } else {

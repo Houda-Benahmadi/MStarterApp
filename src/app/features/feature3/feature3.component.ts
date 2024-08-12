@@ -16,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class Feature3Component implements OnInit {
 
   hospitalName: string;
-  doctors: any[];  // Your list of doctors or cards
+  doctors: any[];  
   filteredDoctors: any[];
   showMore: boolean[]; 
   feedbackText: string[];
@@ -24,7 +24,7 @@ export class Feature3Component implements OnInit {
   constructor(private route: ActivatedRoute, private router:Router) {
     const navigation = this.router.getCurrentNavigation();
     this.hospitalName = navigation?.extras.state?.['hospital'] || '';
-    // Initialize the list of doctors or cards with their respective properties
+    
     this.doctors = [
       {
         header: 'Dr. Abdullah Khalid',
@@ -112,7 +112,7 @@ export class Feature3Component implements OnInit {
       }
     ];
 
-    // Initialize the filtered doctors array
+    
     this.filteredDoctors = [];
     this.showMore = [];
     this.feedbackText = []; 
@@ -123,13 +123,13 @@ export class Feature3Component implements OnInit {
     if (navigation && navigation.extras && navigation.extras.state) {
       this.hospitalName = navigation.extras.state['hospital'] || '';
     }
-    console.log('Hospital Name:', this.hospitalName); // Debugging line
+    console.log('Hospital Name:', this.hospitalName); 
 
     if (this.hospitalName) {
       this.filteredDoctors = this.doctors.filter(doctor => doctor.subheader === this.hospitalName);
-      this.showMore = this.filteredDoctors.map(() => false);  // Initialize showMore for each doctor
+      this.showMore = this.filteredDoctors.map(() => false);  
       this.feedbackText = this.filteredDoctors.map(() => '');
-      console.log('Filtered Doctors:', this.filteredDoctors); // Debugging line
+      console.log('Filtered Doctors:', this.filteredDoctors); 
     }
   }
 
@@ -140,8 +140,12 @@ export class Feature3Component implements OnInit {
   addFeedback(index: number) {
     if (this.feedbackText[index].trim()) {
       this.filteredDoctors[index].feedback.push(this.feedbackText[index].trim());
-      this.feedbackText[index] = '';  // Clear the feedback text input after submission
+      this.feedbackText[index] = '';  
     }
+  }
+
+  backtofeature1(){
+    this.router.navigateByUrl('/feature1');
   }
 
 }
