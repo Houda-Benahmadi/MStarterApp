@@ -1,13 +1,18 @@
 export class Doctors {
-    id: number;
-    doctorname: string; 
-    Atime: number; 
-    Etime: number; 
-  
-    constructor(id: number, doctorname: string, Atime: number, Etime: number) {
-      this.id = id;
-      this.doctorname = doctorname;
-      this.Atime = Atime;
-      this.Etime = Etime;
-    }
+  id: number;
+  name: string; // Replaces doctorname
+  availableTime: number; // Replaces Atime
+  estimatedArrivalTime: number; // Replaces Etime
+
+  constructor(
+    id: number,
+    name: string,
+    availableTime: number,
+    estimatedArrivalTime: number
+  ) {
+    this.id = id;
+    this.name = name;
+    this.availableTime = availableTime;
+    this.estimatedArrivalTime = estimatedArrivalTime;
   }
+}

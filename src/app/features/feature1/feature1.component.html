@@ -1,31 +1,50 @@
 <m-container>
-    <br><br>
-    <h1>Find Your Nearest Doctor !!</h1>
-    <br>
-    <m-search-button (search)="filterTerm = $event"></m-search-button>
-    <m-table
-      [data]="list"
-      [filterTerm]="filterTerm"
-      [tableHeaders]="headers"
-      [showDeleteButton]="false"
-      [showMoreDetails]="true"
-      [showCaption]="true"
-      caption="Available Locations"
-      (navigate)="navigateDoctor()"
-    ></m-table>
+  <br><br>
+  <h1>Find Your Nearest Doctor !!</h1>
+  <br>
   
-    <br><br>
-  
-    <m-map
-      [zoomLevel]="10"
-      [lat]="lat"
-      [lng]="lng"
-      (mapInstance)="getMapInstance($event)"
-    >
-    </m-map>
-    <br>
-    <button class="pure-button" (click)="goToRating()">Done</button>
-    <button class="pure-button" (click)="showClosestMarker()">Show Closest Location</button> <!-- Button to show closest marker -->
-    <button class="pure-button" (click)="showNearestMarkers()">Show Nearest Locations</button> <!-- Button to show nearest markers -->
-  </m-container>
-  
+<!-- Action buttons -->
+  <button class="pure-button" (click)="showClosestMarker()">Emergancy</button>
+  <button class="pure-button" (click)="showNearestMarkers()">All Nearest Hospitals</button>
+ 
+ 
+  <!-- Table for locations within the 5 km radius -->
+  <m-table *ngIf="showLocationTable"
+    [data]="listofLocations"
+    [filterTerm]="filterTerm"
+    [tableHeaders]="headers"
+    [showDeleteButton]="false"
+    [showMoreDetails]="true"
+    [showCaption]="true"
+    caption="Available Locations"
+    (navigate)="navigateDoctor($event)"
+  ></m-table>
+ 
+  <!-- Table for the closest location -->
+  <m-table *ngIf="showClosestLocationTable"
+    [data]="closestLocation"
+    [filterTerm]="filterTerm"
+    [tableHeaders]="headersClosest"
+    [showDeleteButton]="false"
+    [showMoreDetails]="true"
+    [showCaption]="true"
+    caption="Closest Location"
+    (navigate)="navigateDoctor($event)"
+  ></m-table>
+ 
+  <br><br>
+ 
+  <!-- Map component -->
+  <m-map
+    [zoomLevel]="10"
+    [lat]="lat"
+    [lng]="lng"
+    (mapInstance)="getMapInstance($event)"
+  >
+  </m-map>
+ 
+  <br>
+ 
+  <!-- Action button -->
+  <button class="pure-button" (click)="goToRating()">Done</button>
+</m-container>

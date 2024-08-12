@@ -1,44 +1,38 @@
 <m-container>
-    <br>
-    <br>
- 
-    <h1> Appointment Details</h1>
- 
-    <m-card  
-      [header]="'Dr. Abdullah Khalid'"
-      [subheader]="'Ahalia Hospital Mussafah'"
-      [imageurl]="'https://www.felixhospital.com/sites/default/files/2022-11/dr-rahul-arora.jpg'"
+  <br><br>
+  <h2 *ngIf="hospitalName">Available Doctors Details for {{ hospitalName }}</h2>
+
+  <ng-container *ngIf="hospitalName">
+    <!-- Render filtered doctors dynamically -->
+    <m-card *ngFor="let doctor of filteredDoctors; let i = index"
+      [header]="doctor.header"
+      [subheader]="doctor.subheader"
+      [imageurl]="doctor.imageurl"
     >
-      <p>Available Timings: 9:00 AM - 5:00 PM</p>
-   
-      <p>Dr. Abdullah Khalid is a renowned cardiologist with over 15 years of experience in treating heart diseases.</p>
+      <p>Esstimated Distance: {{doctor.distance}}</p>
+      <p>{{ doctor.availability }}</p>
+      <p *ngIf="showMore[i]">{{ doctor.description }}</p>
+
+      <!-- Feedback section -->
+      <div *ngIf="showMore[i]">
+        <h4>Feedbacks:</h4>
+        <ul>
+          <li *ngFor="let feedback of doctor.feedback">{{ feedback }}</li>
+        </ul>
+
+        <!-- Feedback submission form -->
+        <form class="pure-form pure-form-stacked" (ngSubmit)="addFeedback(i)">
+          <textarea [(ngModel)]="feedbackText[i]" name="feedback" rows="3" placeholder="Write your feedback here..." required></textarea>
+          <button class="pure-button" type="submit">Submit Feedback</button>
+        </form>
+      </div>
+
+      <button class="pure-button" (click)="toggleDetails(i)">
+        {{ showMore[i] ? 'Show Less' : 'Show More' }}
+      </button>
     </m-card>
- 
-    <m-card  
-      [header]="'Dr. Farah Ahmad'"
-      [subheader]="'Burjeel Medical City'"
-      [imageurl]="'https://www.felixhospital.com/sites/default/files/2022-11/dt-pooja-yadav.jpg'"
-    >
-      <p><strong>Available Timings:</strong> 10:00 AM - 6:00 PM</p>
-      <p>Dr. Farah Ahmad is a skilled pediatrician known for her compassionate care and expertise in child health.</p>
-    </m-card>
- 
-    <m-card  
-      [header]="'Dr. Salma Mohammed'"
-      [subheader]="'Mediclinic'"
-      [imageurl]="'https://ichef.bbci.co.uk/images/ic/1200x675/p0fjygqq.jpg'"
-    >
-      <p>Available Timings: 8:00 AM - 4:00 PM</p>
-      <p>Dr. Salma Mohammed is an experienced dermatologist specializing in skin care and cosmetic treatments.</p>
-    </m-card>
- 
-    <m-card  
-      [header]="'Dr. Ali Fahed'"
-      [subheader]="'Sheikh Shakhbout Medical City'"
-      [imageurl]="'https://www.felixhospital.com/sites/default/files/2022-11/dr-dk-gupta.jpg'"
-    >
-      <p>Available Timings: 11:00 AM - 7:00 PM</p>
-      <p>Dr. Ali Fahed is a leading orthopedic surgeon with a focus on minimally invasive surgical techniques.</p>
-    </m-card>
- 
+  </ng-container>
+
+  <!-- Message to display if no hospital is selected -->
+  <p *ngIf="!hospitalName">No hospital selected.</p>
 </m-container>

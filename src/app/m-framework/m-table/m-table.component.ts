@@ -1,12 +1,13 @@
-import { Component, Input, Output, EventEmitter, SimpleChanges  } from '@angular/core';
+import { Component, Input, Output, EventEmitter, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MDeleteButtonComponent } from '../m-delete-button/m-delete-button.component';
+
 @Component({
   selector: 'm-table',
   standalone: true,
   imports: [CommonModule, MDeleteButtonComponent],
   templateUrl: './m-table.component.html',
-  styleUrl: './m-table.component.css'
+  styleUrls: ['./m-table.component.css']  // Fixed typo here
 })
 export class MTableComponent {
   @Input() data: any[] = [];
@@ -18,45 +19,44 @@ export class MTableComponent {
   @Input() tableHeaders: string[] = [];
 
   @Output() remove: EventEmitter<number> = new EventEmitter<number>();
-  @Output() navigate: EventEmitter<number> = new EventEmitter<number>();
+  @Output() navigate: EventEmitter<any> = new EventEmitter<any>();  // Updated to emit any type
 
-  private originalData: any[]; 
-  
-  constructor() {
-    this.originalData = [];
-  }
-  
-  
+  private originalData: any[] = [];
+
+  constructor() {}
+
   getObjectKeys(obj: any): string[] {
     if (!obj) {
-      return []; 
+      return [];
     }
     return Object.keys(obj);
   }
-  showDetails(itemId: number) {
-    this.navigate.emit(itemId);
+
+  showDetails(item: any) {  // Updated to accept the entire item
+    this.navigate.emit(item);
   }
+
   removeItem(itemId: number) {
     this.remove.emit(itemId);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    
-    if (changes['data']) {
+    if (changes['data'] && this.data) {
       this.originalData = [...this.data];
     }
 
-    if (changes['filterTerm']) {
+    if (changes['filterTerm'] && this.filterTerm !== undefined) {
       this.filterData(this.filterTerm);
     }
   }
+
   filterData(searchTerm: string): void {
     if (!searchTerm) {
       this.data = [...this.originalData];
     } else {
       this.data = this.originalData.filter(item =>
-        Object.values(item).some((value:any) =>
-          value.toString().toLowerCase().includes(searchTerm.toLowerCase().trim())
+        Object.values(item).some((value: any) =>
+          value && value.toString().toLowerCase().includes(searchTerm.toLowerCase().trim())
         )
       );
     }

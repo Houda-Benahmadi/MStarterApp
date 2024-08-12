@@ -26,14 +26,13 @@ export class FirebaseService {
   }
   setupFirebase() {
     const firebaseConfig = {
-      apiKey: "AIzaSyBaQhXXwwNHpKQlNiDXz9QqSy3ouwylpe0",
-      authDomain: "project-d7d05.firebaseapp.com",
-      databaseURL: "https://project-d7d05-default-rtdb.firebaseio.com",
-      projectId: "project-d7d05",
-      storageBucket: "project-d7d05.appspot.com",
-      messagingSenderId: "495263755120",
-      appId: "1:495263755120:web:222599060c890111c4fdb5",
-      measurementId: "G-W972V6CVF0"
+      apiKey: "AIzaSyCR76xxzN5uwf64KwORzYWMRYVzi7k-LGc",
+      authDomain: "project-5fa9a.firebaseapp.com",
+      projectId: "project-5fa9a",
+      storageBucket: "project-5fa9a.appspot.com",
+      messagingSenderId: "740827934993",
+      appId: "1:740827934993:web:4a9e7c48325e9b11799cb0",
+      measurementId: "G-3VHESFZ746"
     };
     
     initializeApp(firebaseConfig);
@@ -96,6 +95,15 @@ export class FirebaseService {
     });
   });
  }
+
+ pushToNearestDoctorsList(data: any) {
+  return push(ref(this.db, "/nearestDoctors"), data).key;
+}
+
+// Push locations to the emergency doctors list
+pushToEmergencyDoctorsList(data: any) {
+  return push(ref(this.db, "/emergencyDoctors"), data).key;
+}
 
   reset(){
     this.delete("","");
